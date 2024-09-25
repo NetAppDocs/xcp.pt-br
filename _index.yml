@@ -1,0 +1,50 @@
+---
+indexpage:
+  title: Documentação do XCP
+  summary: O NetApp XCP é um software baseado em cliente que permite migrações de
+    dados dimensionáveis e de alto desempenho para migrações de dados e análises de
+    arquivos de qualquer tipo para NetApp e NetApp para NetApp.
+  lead: O NetApp XCP é uma ferramenta de software baseada em cliente que permite migrações
+    de dados dimensionáveis e de alto desempenho para migrações de dados e análises
+    de arquivos de qualquer tipo para NetApp e NetApp para NetApp. O NetApp fornece
+    documentação para a versão mais recente da ferramenta XCP, bem como as três versões
+    mais recentes.
+  tiles:
+  - title: Comece agora
+    links:
+    - title: Notas de lançamento
+      url: "/releasenotes.html"
+    - title: Saiba mais sobre XCP
+      url: "/xcp-index.html"
+    - title: Instale o XCP
+      url: "/xcp-install-xcp.html"
+  - title: Versões anteriores
+    links:
+    - title: Notas de versão do NetApp XCP 1.9.3
+      url: https://library.netapp.com/ecm/ecm_download_file/ECMLP2886695
+    - title: Referência NetApp XCP 1.9.3
+      url: https://library.netapp.com/ecm/ecm_download_file/ECMLP2886872
+    - title: Notas de versão do NetApp XCP 1.9.2
+      url: https://library.netapp.com/ecm/ecm_get_file/ECMLP2885805
+    - title: Referência NetApp XCP 1.9.2
+      url: https://library.netapp.com/ecm/ecm_download_file/ECMLP2885807
+    - title: Notas de versão do NetApp XCP 1.9.1
+      url: https://library.netapp.com/ecm/ecm_get_file/ECMLP2884968
+    - title: Referência NetApp XCP 1.9.1
+      url: https://library.netapp.com/ecm/ecm_download_file/ECMLP2883343
+  - title: Mais recursos
+    links:
+    - title: NetApp (vídeos NetApp XCP)
+      url: link:https://www.youtube.com/user/NetAppTechCommTV/search?query=xcp
+    - title: NetApp XCP (incluindo links para obter uma licença)
+      url: https://xcp.netapp.com/
+    - title: Recursos do NetApp para XCP
+      url: https://www.netapp.com/search/#q=xcp&sort=relevancy&f:@language=English
+    - title: Comunidade NetApp (fóruns)
+      url: link:https://community.netapp.com
+  - title: Referência da XCP
+    links:
+    - title: Referência do comando NFS
+      url: "/xcp-nfs-reference-help.html"
+    - title: Referência do comando SMB
+      url: "/xcp-smb-reference-help.html"

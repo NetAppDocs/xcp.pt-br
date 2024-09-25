@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: xcp-run-multiple-jobs-on-same-host.html 
+keywords: xcp, configure, nfs, posix, connector 
+summary: O conetor POSIX oferece ao XCP a capacidade de acessar qualquer sistema de arquivos montado no Linux, como NFSv4, XFS e Veritas. 
+---
+= Execute vários trabalhos XCP no mesmo host XCP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+A partir do XCP 1,9.2, é possível executar várias tarefas ou comandos XCP em um único host XCP, desde que o host tenha recursos suficientes para cada tarefa. Quando você executa um comando que suporta várias tarefas, o XCP usa memória de host mínima para concluir a tarefa, o que cria a capacidade de executar tarefas adicionais na mesma configuração de host.
+
+
+
+== Requisitos mínimos do sistema
+
+Para cada tarefa XCP, você deve permitir até 64GB GB de memória host e oito núcleos para migrações de médio a grande porte.
+
+
+NOTE: A execução de vários trabalhos XCP no mesmo host não é suportada para migração de dados SMB.
+
+
+
+== A registar
+
+Por padrão, cada trabalho XCP é registrado em um arquivo de log separado exclusivo para o ID do trabalho. Esse mecanismo de log funciona bem ao executar várias tarefas no mesmo host individual. O NetApp não recomenda alterar o `xcpLogConfig.Json` arquivo para usar um único `xcp.log` arquivo para Registrar vários trabalhos XCP executados em paralelo no mesmo host.
+
+
+
+== Comandos suportados
+
+A execução de vários trabalhos XCP no mesmo host é suportada com os seguintes comandos XCP:
+
+* `scan`
+* `copy`
+* `resume`
+* `verify`
+* `isync`
+* `chmod`
+* `chown`
+* `delete`
+
+
+
+
+== Comandos não suportados
+
+A execução de vários trabalhos XCP no mesmo host não é suportada com o `sync` comando.

@@ -1,0 +1,13 @@
+---
+permalink: xcp-migrate-nfs-data.html 
+redirect: xcp/xcp-migrate-data.html 
+---
+= Comandos para migrar dados NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+

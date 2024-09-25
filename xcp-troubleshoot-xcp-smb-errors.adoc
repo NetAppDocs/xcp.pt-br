@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: xcp-troubleshoot-xcp-smb-errors.html 
+keywords: netapp, xcp, troubleshoot, troubleshooting, smb, 
+summary: Solução de problemas de erros SMB do XCP 
+---
+= Solucionar erros do XCP SMB
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Analise as soluções para solucionar o problema.
+
+|===
+| Problema | Solução 
+
+
+ a| 
+Os comandos XCP não mostram os resultados esperados quando um caminho de junção é usado na origem ou no destino.
+ a| 
+Use um caminho de compartilhamento SMB em vez de um caminho de junção ao executar comandos XCP.
+
+
+
+ a| 
+Um erro de traceback pode ocorrer se a origem, destino ou ambos for uma junção sem diretórios e uma licença on-line for usada na migração. Se isso ocorrer, o status do comando XCP é `PASSED`, mas o seguinte erro é retornado no final da saída do console:
+
+[listing]
+----
+Error in atexit._run_exitfuncs:
+Traceback (most recent call last):
+  File "xcp\stats.py", line 214, in call_home
+  File "xcp\histograms.py", line 387, in calculate_averages
+ZeroDivisionError: division by zero
+----| Use uma licença off-line em vez de uma licença on-line. 
+
+
+| `xcp: ERROR`: Esta licença expirou | Renove ou obtenha a nova licença XCP do link:https://xcp.netapp.com/["Site XCP"^]. 
+
+
+| Esta cópia não está licenciada | Obtenha o ficheiro de licença XCP apropriado. Copie a licença XCP para `c:\netapp\xcp` a pasta no host XCP. Execute o `xcp activate` comando para ativar a licença 
+
+
+| `xcp: ERROR`: XCP não ativado, execute 'Ativar' primeiro | Transfira a licença XCP a partir do link:https://xcp.netapp.com/["Site XCP"^]. Copie o arquivo no host cliente XCP Linux em no host XCP `c:\netapp\xcp`. Execute o `xcp activate` comando para ativar a licença. 
+
+
+| `xcp: ERROR`: Arquivo de licença C: NetApp não encontrado | Registre-se para obter a licença XCP link:https://xcp.netapp.com/["Site XCP"^]no . Baixe e copie o arquivo de licença `C:\NetApp\XCP\` no host cliente do XCP Windows. 
+
+
+| Erro de digitalização xcp: O nome da rede não pode ser encontrado | Execute novamente o comando com o nome de compartilhamento correto 
+
+
+| Erro de cópia xcp: ERRO falha ao obter segurança fallback principal mensagem de erro registada no ficheiro xcp.log:
+`pywintypes.error: (1722, 'LookupAccountName', 'The RPC server is unavailable.')` | Adicione a caixa de destino no arquivo hosts (`C:\Windows\System32\drivers\etc\hosts`). A entrada da caixa de destino de armazenamento NetApp deve estar no formato abaixo:
+`<data vserver data interface ip>` 1 ou mais espaços em branco `<cifs server name>` 
+
+
+| `xcp copy: ERROR` Falha ao obter o principal de segurança do fallback (Post adicionando entrada da caixa de destino nos arquivos hosts) erro messaged logged in xcp.log file:
+`'No mapping between account names and security IDs was done'` | O usuário/grupo de retorno não existe no sistema de destino (caixa de destino) ou no diretório ativo. Execute novamente o comando com as opções de usuário/grupo de retorno corretas 
+
+
+| `xcp copy: ERROR` Falha ao obter o principal de segurança do fallback (Post adicionando entrada da caixa de destino nos arquivos hosts) erro messaged logged in xcp.log file:
+`pywintypes.error: (87, 'LookupAccountName', 'The parameter is incorrect.')` | Parâmetro incorreto para a opção de usuário/grupo de retorno. Execute novamente o comando com a sintaxe correta para opções de usuário/grupo de retorno 
+
+
+| `xcp copy` Com a mensagem de erro de migração ACL registada no ficheiro xcp.log
+`pywintypes.error`: : `(1314, 'GetNamedSecurityInfo', 'A required privilege is not held by the client.')` | Um problema relacionado a descritores de segurança porque a conta de usuário de migração só tem o Privileges necessário para que o XCP recupere o proprietário, o grupo e o DACL. Não é possível recuperar SACL. Adicione sua conta de usuário de migração à política "Gerenciar Registro de auditoria e segurança" no ative Directory. Referência: link:https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn221953%28v%3Dws.11%29["Gerenciar auditoria e log de segurança"^] 
+|===

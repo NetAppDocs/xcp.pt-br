@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: xcp-install-file-analytics-for-nfs.html 
+keywords: netapp, xcp, install, installing, file, analytics, nfs, upgrade, upgrading 
+summary: Instalar ou atualizar a análise de arquivos para NFS 
+---
+= Instale o File Analytics para NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Instalar ou atualizar a análise de arquivos para NFS.
+
+.Sobre esta tarefa
+Para obter os requisitos de sistema para NFS, link:xcp-install-xcp-nfs.html["Instale o XCP NFS"]consulte .
+
+O `configure.sh` script instala o XCP File Analytics em uma máquina host do Red Hat Enterprise Linux (RHEL). Como parte da instalação, o script instala Postgres Database, Apache HTTPD Server e outros pacotes necessários na máquina host Linux. Para obter informações sobre versões RHEL compatíveis específicas, consulte o link:https://mysupport.netapp.com/matrix/["IMT"^]. Você pode alterar ou atualizar para uma versão mais recente conforme necessário e seguir as diretrizes de segurança. Para saber mais sobre o `configure.sh` script, execute `./configure.sh -h` na linha de comando.
+
+.Antes de começar
+* Se alguma operação XCP estiver em execução, a NetApp recomenda que você conclua as operações antes de iniciar a configuração.
+* Sua máquina Linux deve estar conetada ao servidor de repositório Yum ou à Internet.
+* Se um firewall estiver configurado na máquina Linux, você deverá alterar as configurações do firewall para ativar a porta 5030, que é usada pelo serviço XCP.
+
+
+.Passos
+. Instalar ou atualizar a análise de arquivos para NFS.
++
+[role="tabbed-block"]
+====
+.Instale o File Analytics
+--
+.. Navegue até `xcp` a pasta e execute o `./configure.sh` script.
++
+Se a instalação for bem-sucedida, é apresentada a seguinte mensagem:
+
++
+[listing]
+----
+You can now access XCP file analytics using (<username>:<password>)
+https://<ip_address>/xcp
+----
++
+
+NOTE: Você pode usar esse nome de usuário e senha para fazer login na GUI do File Analytics.
+
+
+
+--
+.Atualizar análise de ficheiros
+--
+.. Navegue até a `xcp` pasta e execute `./configure.sh -f`o .
+.. No prompt, digite `y` para limpar e reconfigurar o sistema.
++
+Depois que o script é aprovado, ele limpa a configuração existente e reconfigura o sistema.
+
++
+Se for bem-sucedido, é apresentada a seguinte mensagem:
+
++
+[listing]
+----
+You can now access XCP file analytics using (<username>:<password>)
+https://<ip_address>/xcp
+----
+
+
+--
+====
+. Inicie a análise de ficheiros num browser suportado: *Endereço \https://<ip do linux>/xcp*.
++
+link:xcp-install-xcp-nfs.html["Instale o XCP NFS"]Consulte para obter informações sobre navegadores compatíveis.
+
+

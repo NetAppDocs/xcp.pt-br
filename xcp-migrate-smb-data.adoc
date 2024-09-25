@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: xcp-migrate-smb-data.html 
+keywords: netapp, xcp, migrate, data, smb, copy, resume, sync, verify 
+summary: Migrar dados SMB 
+---
+= Migrar dados SMB
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Depois de planear a migração com `show` os comandos e `scan`, pode migrar os dados SMB.
+
+
+
+== Cópia
+
+O `copy` comando verifica e copia toda a estrutura do diretório de origem para um compartilhamento SMB de destino. O `copy` comando requer ter caminhos de origem e destino como variáveis. Os arquivos digitalizados e copiados, a taxa de transferência/velocidade e os detalhes do tempo decorrido são impressos no console uma vez a cada cinco segundos.
+
+
+NOTE: Durante a operação de cópia, você pode usar o `-preserve-atime` sinalizador com o `copy` comando para preservar o tempo de acesso na origem.
+
+*Exemplo:*
+
+[listing]
+----
+C:\xcp>xcp copy \\<IP address or hostname of SMB server>\source_share \\<IP address of SMB destination server>\dest_share
+----
+Corra `xcp help copy` para obter mais detalhes.
+
+
+
+== Sincronizar
+
+O `sync` comando procura alterações e modificações nos compartilhamentos de origem e destino em paralelo e aplica as ações apropriadas (remover, modificar, renomear, etc.) ao destino para garantir que o destino seja idêntico ao da fonte.
+
+O comando SYNC compara conteúdo de dados, carimbos de hora, atributos de arquivo, propriedade e informações de segurança.
+
+
+NOTE: Durante a operação de sincronização, você pode usar o `-preserve-atime` sinalizador com o `sync` comando para preservar o tempo de acesso na origem.
+
+*Exemplo:*
+
+[listing]
+----
+C:\xcp>xcp sync \\<IP address or hostname of SMB server>\source_share \\<IP address of SMB destination server>\dest_share
+----
+Corra `xcp help sync` para obter mais detalhes.
+
+
+
+== Verifique
+
+O `verify` comando lê os compartilhamentos de origem e destino e os compara, fornecendo informações sobre o que é diferente. Você pode usar o comando em qualquer origem e destino, independentemente da ferramenta usada para executar a cópia ou sincronização.
+
+[NOTE]
+====
+Durante a operação verificar, você pode usar o `-preserve-atime` sinalizador com o `verify` comando para preservar o tempo de acesso na origem.
+
+====
+*Exemplo:*
+
+[listing]
+----
+C:\xcp>xcp verify \\<IP address or hostname of SMB server>\source_share \\<IP address of SMB destination server>\dest_share
+----
+Corra `xcp help verify` para obter mais detalhes.

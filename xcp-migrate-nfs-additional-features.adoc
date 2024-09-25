@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: xcp-migrate-nfs-additional-features.html 
+keywords: xcp, nfs, chomod, chown, posix, ownership, change, file, path, directory, command, scan 
+summary: O XCP inclui alguns recursos NFS adicionais que facilitam a alteração de propriedade e permissões de arquivos e diretórios para qualquer compartilhamento NFS ou caminho POSIX. 
+---
+= Recursos NFS adicionais
+:allow-uri-read: 
+
+
+[role="lead"]
+O XCP inclui alguns recursos NFS adicionais.
+
+
+
+== Chown e chmod
+
+Você pode usar o XCP e `chown` `chmod` os comandos para alterar recursivamente todos os arquivos e diretórios para um determinado compartilhamento NFS ou caminho POSIX. Isso aumenta o desempenho de milhões de arquivos.
+
+
+NOTE: Antes de alterar a propriedade dos arquivos, você deve configurar o novo proprietário. Caso contrário, o comando falhará. O XCP e `chown` `chmod` os comandos funcionam de forma semelhante ao Linux `chown` e `chmod` aos comandos.
+
+
+
+=== Chmod
+
+O `chmod` comando verifica e altera a permissão de arquivo de todos os arquivos na estrutura de diretórios escolhida. O `chmod` comando requer um modo ou referência e um compartilhamento NFS ou caminho POSIX como variáveis. O XCP `chmod` altera recursivamente as permissões para um determinado caminho. Você pode usar o `chmod` comando para exibir o total de arquivos digitalizados e as permissões que foram alteradas na saída.
+
+*Exemplo:*
+
+....
+xcp chmod -mode 777 NFS [server:/export path | file://<NFS mounted path>]
+xcp chmod -mode 707 nfs_server01.netapp.com:/export1
+xcp chmod -reference nfs_server01.netapp.com:/export/dir1/file.txt  nfs_server02.netapp.com: export1
+xcp chmod -match “fnm(‘file.txt’)” -mode 111 file:///mnt/nfs_mount_point/
+xcp chmod -exclude “fnm(‘file.txt’)” -mode 111 file:///demo/user1/
+....
+Execute o `xcp help chmod` comando para obter mais informações.
+
+
+
+=== Chown
+
+Você pode usar o comando XCP `chown` para alterar recursivamente todos os arquivos e diretórios para um determinado caminho NFS Share ou POSIX. Isso aumenta o desempenho de milhões de arquivos.
+
+O `chown` comando verifica e altera a propriedade de todos os arquivos na estrutura de diretórios escolhida. O `chown` comando requer um compartilhamento NFS ou caminho POSIX como variáveis. O XCP `chown` altera recursivamente a propriedade de um determinado caminho.
+
+*Exemplo*
+
+....
+xcp chown -user user1 NFS [server:/export path | file://<NFS mounted path>
+xcp chown -user user1 nfs_server01.netapp.com:/export1
+xcp chown -user user1 -group group1 nfs_server01.netapp.com:/export1/dir1/
+xcp chown  -reference nfs_server01.netapp.com:/export/dir1/file.txt  nfs_server02.netapp.com:/export1
+xcp chown -match “fnm(‘file.txt’)” -user user1 file:///mnt/nfs_mount_point/
+xcp chown -exclude “fnm(‘file.txt’)” -user user1 -group group1
+xcp chown -user-from user1 -user user2 file:///mnt/nfs_mount_point/
+xcp chown -group-from group1 -group group2 nfs_server01.netapp.com:/export1/
+....
+Execute o `xcp help chown` comando para obter mais informações.
+
+
+
+== Estimativa XCP
+
+O recurso de estimativa XCP estima o tempo para concluir uma operação de linha de base `copy` da origem para o destino. Ele calcula o tempo estimado para concluir uma operação de linha de base `copy` usando todos os recursos do sistema atualmente disponíveis, como CPU, RAM, rede ou outros parâmetros. Quando você usa a `-target` opção, o XCP executa uma operação de cópia de amostra para encontrar o tempo de estimativa.
+
+*Exemplo*
+
+....
+server : NFS server IP
+export : NFS exported path for the above IP
+
+xcp static estimation
+xcp estimate -id <scan id>
+
+xcp live estimation with default time
+xcp estimate -id <scan id> -target server:/export
+
+xcp live estimation with -t option
+xcp estimate -id <scan id> -t <time for which estimation should run> -target server:/export
+....
+
+
+== indexdelete
+
+Você pode usar o `indexdelete` comando para excluir índices de catálogo.
+
+*Exemplo*
+
+[listing]
+----
+xcp indexdelete
+----
+Corra `xcp help indexdelete` para obter mais detalhes.

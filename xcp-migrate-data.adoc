@@ -1,0 +1,111 @@
+---
+sidebar: sidebar 
+permalink: xcp-migrate-data.html 
+keywords: netapp, xcp, migrate, data, nfs, smb, copy, resume, sync, verify 
+summary: Migrar dados 
+---
+= Migrar dados NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Depois de Planejar a migração com `show` os comandos e `scan`, é possível migrar os dados NFS.
+
+
+
+== Cópia
+
+O `copy` comando verifica e copia toda a estrutura do diretório de origem para uma exportação de destino NFSv3. O `copy` comando requer ter caminhos de origem e destino como variáveis. Os ficheiros lidos e copiados, a taxa de transferência/velocidade e os detalhes do tempo decorrido são apresentados no final da operação de cópia.
+
+*Exemplo:*
+
+[listing]
+----
+xcp copy <source_nfs_export_path> <destination_nfs_export_path>
+----
+*Exemplo de caminho POSIX:*
+
+[listing]
+----
+xcp copy -newid <id> file:///mnt/source file:///mnt/dest
+----
+Corra `xcp help copy` para obter mais detalhes.
+
+
+
+== Retomar
+
+O `resume` comando reinicia uma operação de cópia interrompida anteriormente especificando o nome ou número do índice do catálogo. O nome do índice de catálogo ou o número da operação de cópia anterior é armazenado `<catalog path>:/catalog/indexes` no diretório.
+
+*Exemplo:*
+
+[listing]
+----
+xcp resume -id <catalog_name>
+----
+Corra `xcp help resume` para obter mais detalhes.
+
+
+
+== Sincronizar
+
+O `sync` comando verifica se há alterações e modificações realizadas em um diretório NFS de origem usando um nome de tag de índice de catálogo ou o número de uma operação de cópia anterior. As alterações incrementais de origem são copiadas e aplicadas ao diretório de destino. Os números antigos do índice do catálogo são substituídos por um novo [.Underline] após a operação de sincronização.
+
+*Exemplo:*
+
+[listing]
+----
+xcp sync -id <catalog_name>
+----
+Corra `xcp help sync` para obter mais detalhes.
+
+
+
+== Verifique
+
+O `verify` comando usa uma comparação completa de dados byte por byte entre diretórios de origem e destino após a operação de cópia sem usar um número de índice de catálogo. O comando verifica os tempos de modificação e outros atributos de arquivo ou diretório, incluindo permissões. O comando também lê os arquivos em ambos os lados e compara os dados.
+
+*Exemplo:*
+
+[listing]
+----
+xcp verify <source_ip_address>:/source_vol <destination_ip_address>:/dest_vol
+----
+*Exemplo de caminho POSIX:*
+
+[listing]
+----
+xcp verify file:///mnt/source file:///mnt/dest
+----
+Corra `xcp help verify` para obter mais detalhes.
+
+
+
+== ISync
+
+O `isync` comando compara a origem e o destino e sincroniza as diferenças no destino sem usar o índice de catálogo.
+
+*Exemplo*
+
+[listing]
+----
+xcp isync <source_ip_address>:/src <destination_ip_address>:/dest
+
+----
+Você pode usar `isync` com a `estimate` opção para estimar o tempo necessário para `isync` o comando sincronizar as alterações incrementais. O `-id` parâmetro especifica o nome do catálogo de uma operação de cópia anterior.
+
+
+NOTE: Se você alterar mais de 25% do tamanho do conjunto de dados usado, o `isync estimate` comando pode não mostrar os resultados esperados.
+
+*Exemplo*
+
+[listing]
+----
+xcp isync estimate -id <name>
+----
+Corra `xcp help isync` para obter mais detalhes.

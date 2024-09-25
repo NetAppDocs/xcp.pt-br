@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: xcp-configure-the-ini-file-for-xcp-nfs.html 
+keywords: netapp, xcp, configure, configuring, how, performing, tuning, nfs, 
+summary: Etapas para configurar o arquivo INI XCP 
+---
+= Configure o arquivo INI para XCP NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Etapas para configurar o arquivo INI para XCP.
+
+
+NOTE: O arquivo INI XCP não é necessário no SMB do XCP.
+
+
+
+== Configure o arquivo INI para um usuário root
+
+Você pode usar o seguinte procedimento para configurar o arquivo INI para um usuário raiz NFS XCP.
+
+.Passos
+. Adicione o local do catálogo para o servidor XCP no arquivo de configuração do host usando o `vi` editor:
++
+
+NOTE: A localização do catálogo deve ser exportada antes de modificar os detalhes no `xcp.ini` arquivo de configuração do XCP. A localização do catálogo (NFSv3) deve ser montável pelo host XCP Linux, mas não necessariamente ser montado.
+
++
+[listing]
+----
+[root@localhost /]# vi /opt/NetApp/xFiles/xcp/xcp.ini
+----
+. Verifique se as entradas do arquivo de configuração do host do cliente XCP Linux para o catálogo foram modificadas:
++
+[listing]
+----
+[root@localhost /]# cat /opt/NetApp/xFiles/xcp/xcp.ini
+# Sample xcp config
+[xcp]
+catalog = 10.61.82.210:/vol/xcpvol/
+----
+
+
+
+
+== Configure o arquivo INI para um usuário que não seja root
+
+Como um usuário não-root, você não tem permissão para montar o sistema de arquivos NFS. Um usuário raiz é necessário para primeiro montar o volume do catálogo e, em seguida, como um usuário não-root executando XCP, se você tiver permissão de leitura/gravação para o volume do catálogo, você pode acessar o volume do catálogo montado usando um conetor POSIX. Depois que o volume é montado, você pode adicionar catálogo o caminho:
+
+[listing]
+----
+(t/10.237.170.53_catalog_vol – This is the path where catalog volume is mounted)as follows.
+
+[user1@scspr2474004001 xcp]$ ls -ltr
+total 8
+drwxrwxr-x 2 user1 user1  21 Sep 20 02:04 xcplogs
+-rw-rw-r-- 1 user1 user1  71 Sep 20 02:04 xcp.ini
+-rwxr-xr-x 1 user1 user1 352 Sep 20 02:10 license
+[user1@scspr2474004001 xcp]$ cat /home/user1/NetApp/xFiles/xcp/xcp.ini
+
+Sample xcp config [xcp]
+catalog = file:///t/10.237.170.53_catalog_vol
+----

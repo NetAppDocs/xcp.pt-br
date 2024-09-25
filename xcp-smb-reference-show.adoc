@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: xcp-smb-reference-show.html 
+keywords: netapp, xcp, reference, smb, command, commands 
+summary: 'Referência do comando "show" do SMB do XCP' 
+---
+= mostrar
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O comando SMB `show` consulta os serviços RPC e as exportações NFS de um ou mais servidores de storage. O comando também lista os serviços disponíveis e as exportações com a capacidade usada e livre de cada exportação, seguido pelos atributos da raiz de cada exportação.
+
+.Sintaxe
+O `show` comando requer o nome do host ou o endereço IP do sistema exportado NFSv3:
+
+[source, cli]
+----
+xcp show \\<IP address or hostname of SMB server>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+C:\Users\Administrator\Desktop\xcp>xcp show \\<IP address or hostname of SMB server>
+Shares Errors Server
+7 0 <IP address or hostname of SMB server>
+== SMB Shares ==
+Space Space Current
+Free Used Connections Share Path Folder Path
+0 0 N/A \\<IP address or hostname of SMB server>\IPC$ N/A
+533GiB 4.72GiB 0 \\<IP address or hostname of SMB server>\ETC$ C:\etc
+533GiB 4.72GiB 0 \\<IP address or hostname of SMB server>\HOME C:\vol\vol0\home
+533GiB 4.72GiB 0 \\<IP address or hostname of SMB server>\C$ C:\
+972MiB 376KiB 0 \\<IP address or hostname of SMB server>\testsecureC:\vol\testsecure
+12 XCP SMB v1.6 User Guide © 2020 NetApp, Inc. All rights reserved.
+47.8GiB 167MiB 1 \\<IP address or hostname of SMB server>\volxcp C:\vol\volxcp
+9.50GiB 512KiB 1 \\<IP address or hostname of SMB server>\jl C:\vol\jl
+== Attributes of SMB Shares ==
+Share Types Remark
+IPC$ PRINTQ,IPC,SPECIAL,DEVICE Remote IPC
+ETC$ SPECIAL Remote Administration
+HOME DISKTREE Default Share
+C$ SPECIAL Remote Administration
+testsecure DISKTREE for secure copy
+volxcp DISKTREE for xcpSMB
+jl DISKTREE
+== Permissions of SMB Shares ==
+Share Entity Type
+IPC$ Everyone Allow/Full Control
+ETC$ Administrators Allow/FullControl
+HOME Everyone Allow/Full Control
+C$ Administrators Allow/Full Control
+
+xcp show \\<IP address or hostname of SMB server>
+0 errors
+Total Time : 0s
+STATUS : PASSED
+----
+====
+A tabela a seguir lista os `show` parâmetros e sua descrição.
+
+[cols="2*"]
+|===
+| Parâmetro | Descrição 
+
+
+| mostrar -v | Imprime detalhes verbose sobre servidores SMB usando o endereço IP ou o nome do host. 
+
+
+| mostrar -h, --help | Exibe informações detalhadas sobre como usar o comando. 
+|===

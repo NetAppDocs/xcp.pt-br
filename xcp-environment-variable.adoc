@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: xcp-environment-variable.html 
+keywords: netapp, xcp, configure, configuring, how, performing, tuning, nfs, enviroment, 
+summary: 'Variável de ambiente (somente NFS)' 
+---
+= Variável de ambiente
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Configuração opcional de variável de ambiente para sistemas NFS XCP.
+
+
+NOTE: Um usuário não-root também pode usar as seguintes variáveis.
+
+A variável de ambiente `XCP_CONFIG_DIR` substitui o local padrão `/opt/NetApp/xFiles/xcp`, . Se definido, o valor deve ser um caminho de sistema de arquivos do os, possivelmente para um diretório NFS montado. Quando a `XCP_CONFIG_DIR` variável é definida, um novo diretório com o mesmo nome que o nome do host é criado dentro do caminho do diretório de configuração personalizada, novos logs são armazenados nesse local.
+
+[listing]
+----
+[root@localhost /]# export XCP_CONFIG_DIR ='/tmp/xcp_config_dir_path'
+----
+A variável de ambiente `XCP_LOG_DIR` substitui o local padrão que armazena o log do XCP no diretório de configuração. Se definido, o valor deve ser um caminho de sistema de arquivos do os, possivelmente para um diretório NFS montado. Quando a  `XCP_LOG_DIR` variável é definida, um novo diretório com o mesmo nome que o nome do host é criado dentro do caminho do diretório de log personalizado, novos logs são armazenados nesse local.
+
+[listing]
+----
+[root@localhost /]# export XCP_LOG_DIR='/tmp/xcp_log_dir_path'
+----
+A variável de ambiente `XCP_CATALOG_PATH` substitui a configuração em xcp.ini. Se definido, o valor deve estar no formato de caminho xcp, `server:export[:subdirectory]`.
+
+[listing]
+----
+[root@localhost /]# export XCP_CATALOG_PATH='10.61.82.210:/vol/xcpvol/'
+----
+
+NOTE: Para um usuário não-root, você deve substituir `XCP_CATALOG_PATH` do caminho exportado pelo caminho POSIX.

@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: xcp-install-xcp.html 
+keywords: netapp, xcp, install, installing, download, downloading, license, preparing, system 
+summary: Instale o XCP 
+---
+= Prepare-se para a instalação do XCP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Em preparação para a instalação, você baixa XCP, obtém uma licença e prepara seu sistema.
+
+
+
+== Instalar e configurar o fluxo de trabalho
+
+Este documento fornece um fluxo de trabalho fácil para instalar e configurar o XCP em sistemas NFS e SMB.
+
+image:xcp_image16.PNG["Fluxo de trabalho de instalação e configuração do XCP"]
+
+
+
+== Faça o download da XCP
+
+Faça o download do XCP a partir do site de suporte da NetApp e obtenha uma licença no site da XCP.
+
+Pode transferir o XCP a partir do link:https://mysupport.netapp.com/products/p/xcp.html["Site de suporte da NetApp"^].
+
+
+
+== Licença XCP
+
+O NetApp oferece uma licença XCP gratuita de um ano. Pode obter o ficheiro de licença no link:https://xcp.netapp.com/["Site XCP"^]. O portal de licenciamento oferece diferentes opções de licenciamento. Após um ano, você pode renovar a licença por mais um ano usando o mesmo portal.
+
+A licença XCP está disponível como uma licença offline ou online. Se você quiser enviar estatísticas de migração, use uma licença online. A licença online requer uma ligação à Internet. A licença off-line não requer uma conexão com a Internet.
+
+Para executar o XCP 1.9.3 e posterior, você deve obter uma nova licença XCP do link:https://xcp.netapp.com/["Site XCP"^].
+
+
+NOTE: As licenças usadas com o XCP 1.9.2 e anteriores não são suportadas no XCP 1.9.3 e posterior. Da mesma forma, as licenças usadas com o XCP 1.9.3 e posterior não são suportadas no XCP 1.9.2 e versões anteriores.
+
+
+
+== Prepare o sistema
+
+Se estiver a utilizar link:xcp-prepare-linux-for-xcp-nfs.html["XCP NFS em um sistema Linux"]o , tem de preparar o catálogo e o armazenamento.
+
+Se estiver a utilizar link:xcp-prepare-windows-for-xcp-smb.html["XCP SMB em um sistema Microsoft Windows"]o , tem de preparar o armazenamento.

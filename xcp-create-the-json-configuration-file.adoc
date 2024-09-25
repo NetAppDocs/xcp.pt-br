@@ -1,0 +1,8 @@
+---
+sidebar: sidebar 
+redirect: xcp/xcp-logging-for-nfs-and-smb.html 
+---
+= 
+:allow-uri-read: 
+
+

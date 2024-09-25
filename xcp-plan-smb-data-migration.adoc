@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: xcp-plan-smb-data-migration.html 
+keywords: netapp, xcp, plan, planning, data, migration, migrate, migrating, smb, file, analytics, 
+summary: Planejar a migração de dados SMB 
+---
+= Planejar a migração de dados SMB
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Planeje suas migrações de dados SMB.
+
+
+
+== Mostrar
+
+O `show` comando mostra todos os compartilhamentos SMB disponíveis no servidor com as permissões e o espaço disponíveis. Exemplo:
+
+* `xcp show \\<SMB file server IP/FQDN>`
+* `xcp show smb_server01.netapp.com`
+
+
+Corra `xcp help show` para obter mais detalhes.
+
+
+
+== Digitalizar
+
+ `scan`O comando verifica recursivamente todo o compartilhamento SMB e lista todos os arquivos no final da digitalização.
+
+
+NOTE: Durante a operação de digitalização, você pode usar o `-preserve-atime` sinalizador com o `scan` comando para preservar o tempo de acesso na origem .
+
+*Exemplo:*
+
+* `xcp scan \\SMB server\share1`
+* `xcp scan smb_server01.netapp.com:/share1`
+
+
+Corra `xcp help scan` para obter mais detalhes.
+
+Opcionalmente, use File Analytics para visualizar os resultados graficamente.

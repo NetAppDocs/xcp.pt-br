@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: xcp-index.html 
+keywords: netapp, xcp, about, migration, file analytics, nfs, smb 
+summary: O NetApp XCP permite migrações de dados escaláveis e de alto desempenho 
+---
+= Saiba mais sobre XCP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O NetApp XCP é um software baseado em cliente que permite migrações de dados dimensionáveis e de alto desempenho para migrações de dados e análises de arquivos de qualquer tipo para NetApp e NetApp para NetApp. O XCP foi projetado para escalar e alcançar maior desempenho, utilizando todos os recursos do sistema disponíveis para gerenciar conjuntos de dados de alto volume e migrações de dados de alto desempenho. O XCP ajuda você a obter visibilidade completa do sistema de arquivos com a opção de gerar relatórios de clientes. Graças aos recursos de correspondência e formatação, você pode personalizar os relatórios para atender a qualquer necessidade de relatórios.
+
+Use o XCP para sistemas NFS ou SMB como uma das seguintes soluções:
+
+* Solução de migração
+* Solução de análise de arquivos
+
+
+O XCP é um software de linha de comando disponível em um único pacote que suporta protocolos NFS e SMB. O XCP está disponível como um binário Linux para conjuntos de dados NFS e está disponível como um executável do Windows para conjuntos de dados SMB.
+
+O XCP File Analytics é um software baseado em host que deteta compartilhamentos de arquivos, executa varreduras no sistema de arquivos e fornece um painel para análise de arquivos. O XCP File Analytics funciona para sistemas NetApp e de terceiros e é executado em hosts Linux ou Windows para fornecer análises para sistemas de arquivos exportados por NFS e SMB. O binário da GUI de análise de arquivos está incluído no pacote único que suporta protocolos NFS e SMB.
+
+
+NOTE: O binário XCP é o código assinado. Para obter mais detalhes, consulte o README em `NETAPP_XCP_<version>.tgz`.
+
+A CLI XCP é robusta. Para obter mais informações, baixe _XCP Reference_ no link:https://xcp.netapp.com/["Site XCP"^].
+
+*Fluxo de trabalho XCP*
+
+image:xcp_image1.png["Imagem de fluxo de trabalho XCP"]

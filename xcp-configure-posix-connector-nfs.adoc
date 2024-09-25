@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: xcp-configure-posix-connector-nfs.html 
+keywords: xcp, configure, nfs, posix, connector 
+summary: O conetor POSIX oferece ao XCP a capacidade de acessar qualquer sistema de arquivos montado no Linux, como NFSv4, XFS e Veritas. 
+---
+= Configure o conetor POSIX
+:allow-uri-read: 
+
+
+[role="lead"]
+O XCP NFS agora oferece suporte ao uso de conetores POSIX para fornecer caminhos de origem e destino para migração de dados.
+
+
+
+== Recursos suportados
+
+Os seguintes recursos são suportados para conetores POSIX:
+
+* Para sistemas de arquivos POSIX que suportam nanossegundos `atime`, `mtime`, e `ctime`, o `scan` comando obtém os valores completos (segundos e nanossegundos) e o `copy` comando os define
+* Os conetores POSIX são mais seguros do que o XCP com NFSv3 soquetes TCP.
+
+
+
+
+== Sintaxe caminho
+
+A sintaxe do caminho para um conetor POSIX é `\file://<mounted path on linux>`.
+
+
+
+== Configure um conetor POSIX
+
+Para configurar um conetor POSIX, você deve executar as seguintes tarefas:
+
+* Monte uma fonte e um volume de destino
+* Verifique se o caminho de destino tem a permissão necessária para gravar os dados
+
+
+Um destino e um catálogo são montados no seguinte exemplo:
+
+[listing]
+----
+root@scspr2395903001 ~]# findmnt -t nfs4
+TARGET SOURCE FSTYPE OPTIONS
+/t/10.237.170.39_src_vol 10.237.170.39:/source_vol nfs4
+rw,relatime,vers=4.0,rsize=65536,wsize=65536,namlen=255,hard,proto=t
+cp,timeo=600,retrans=2,sec=sys,clien
+/t/10.237.170.53_dest_vol 10.237.170.53:/dest_vol nfs4
+rw,relatime,vers=4.0,rsize=65536,wsize=65536,namlen=255,hard,proto=t
+cp,timeo=600,retrans=2,sec=sys,clien
+/t/10.237.170.53_catalog_vol 10.237.170.53:/xcp_catalog nfs4
+rw,relatime,vers=4.0,rsize=65536,wsize=65536,namlen=255,hard,proto=t
+cp,timeo=600,retrans=2,sec=sys,clien
+[root@scspr2395903001 ~]#
+----
+Os conetores POSIX acessam um volume de origem e destino usando a sintaxe POSIX `file://` . No exemplo acima, o caminho de origem é `\file:///t/10.237.170.39_src_vol` e o caminho de destino é `file:// /t/10.237.170.53_dest_vol`.
+
+Você pode gerenciar a configuração de exemplo de um catálogo XCP compartilhado por usuários não-root criando um grupo Linux para usuários XCP. Para usuários não-root, as permissões a seguir são necessárias para que usuários do grupo Linux realizem migrações.
+
+Na saída de amostra a seguir `demo`, é o usuário não-root e `/mnt/xcp-catalog` é o caminho onde o volume do catálogo é montado:
+
+[listing]
+----
+sudo groupadd -g 7711 xcp_users
+sudo usermod -G xcp_users -a demo
+sudo chown -R :xcp_users /mnt/xcp-catalog
+sudo chmod -R g+w /mnt/xcp-catalog
+----
+O catálogo XCP não armazena dados, mas armazena nomes de arquivos de digitalização e cópia, nomes de diretório e outros metadados. Portanto, é recomendável que você configure as permissões do sistema de arquivos de catálogo para que os usuários autorizados ofereçam a capacidade de proteger os metadados armazenados.
+
+
+
+== Propriedade (UID e GID)
+
+Quando você é configurado como um usuário regular, por padrão, um `copy` comando para um destino POSIX ou NFS3 não tenta definir a propriedade (ID do usuário (UID) e ID do grupo (GID)). A definição da propriedade é normalmente realizada por um administrador. Quando o usuário A copia arquivos do usuário B, o usuário A espera possuir o destino. No entanto, este não é o caso quando um usuário root copia os arquivos. Quando um usuário root copia os arquivos, a `-chown` opção muda o comportamento para que um comando não root `copy` com `-chown` tentativas de definir o UID e o GID.
+
+
+
+== Aumente o número máximo de descritores de arquivos abertos
+
+Para um desempenho e fiabilidade ideais, pode aumentar o número máximo de descritores de ficheiros abertos para o utilizador XCP em todos os nós.
+
+.Passos
+. Abra o arquivo usando o seguinte comando:
+`vi /etc/security/limits.conf`
+. Adicione a seguinte linha ao arquivo:
+`<username> - nofile 999999`
+
+
+*Exemplo*
+
+[listing]
+----
+root - nofile 999999
+----
+Consulte link:https://access.redhat.com/solutions/61334^["Soluções Red Hat"] para obter mais informações.

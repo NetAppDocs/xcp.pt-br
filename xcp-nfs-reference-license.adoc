@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: xcp-nfs-reference-license.html 
+keywords: netapp, xcp, reference, nfs, command, commands 
+summary: Referência do comando XCP NFS 
+---
+= licença
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O comando NFS `license` exibe informações de licença XCP.
+
+Antes de executar este comando, verifique se o arquivo de licença é baixado e copiado para `/opt/NetApp/xFiles/xcp/` o diretório no host cliente XCP Linux.
+
+.Sintaxe
+[source, cli]
+----
+xcp license
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@localhost /]# ./xcp license
+
+Licensed to "XXX, NetApp Inc, XXX@netapp.com" until Sun Mar 31 00:00:00 2029 License type: SANDBOX
+License status: ACTIVE
+Customer name: N/A
+Project number: N/A
+Offline Host: Yes
+Send statistics: No
+Host activation date: N/A
+License management URL: https://xcp.netapp.com
+----
+====
+
+
+== atualização da licença
+
+Use o `update` parâmetro com o `license` comando para recuperar a licença mais recente do servidor XCP.
+
+.Sintaxe
+[source, cli]
+----
+xcp license update
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@localhost /]# ./xcp license update
+
+XCP <version>; (c) yyyy NetApp, Inc.; Licensed to XXX [NetApp Inc] until Sun Mar 31 00:00:00 yyyy
+----
+====

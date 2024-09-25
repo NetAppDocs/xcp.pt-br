@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: xcp-unsupported-features.html 
+keywords: xcp, nfs, smb, features, unsupported, configuration 
+summary: Alguns recursos não são compatíveis com XCP NFS ou XCP SMB. 
+---
+= Funcionalidades não suportadas
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Os seguintes recursos não são compatíveis com XCP NFS:
+
+[cols="40,60"]
+|===
+| Nome da função | Descrição 
+
+
+| IPv6 | Não suporta IP versão 6 (IPv6) 
+
+
+| NFSv4 listas de controle de acesso (ACLs) (terceiros) | Não oferece suporte a ACLs do NetApp NFSv4 de terceiros 
+
+
+| Conetor POSIX  a| 
+* O `sync` comando não suporta o conetor POSIX
+* Você não deve usar o `copy` comando quando a fonte estiver ativa
+
+
+
+
+| Linux | O XCP não é mais suportado em distribuições anteriores do Linux que foram suportadas pelo XCP 1,6.3. 
+
+
+| Suporte de fonte ativa | O XCP não oferece suporte à combinação de operações de cópia Snapshot de linha de base ou incremental com migrações de origem ao vivo. 
+
+
+| Migração de NFS para S3 | O XCP não oferece suporte à migração de NFS para S3. 
+|===
+Os seguintes recursos não são suportados no XCP SMB:
+
+[cols="40,60"]
+|===
+| Nome da função | Descrição 
+
+
+| Listas de controle de acesso (ACLs) de terceiros para NetApp NTFS | O XCP SMB não suporta a migração de ACLs de terceiros de sistemas não NetApp para NetApp. 
+
+
+| Link simbólico de NFS (link simbólico) | O link simbólico de NFS não é suportado no XCP SMB 
+
+
+| Opção ACL para digitalização | ACLs não suportadas para a opção de digitalização 
+
+
+| IPv6 | Não suporta IP versão 6 (IPv6) 
+
+
+| Filtros XCP | A opção XCP SMB exclude atualmente exclui diretórios com base em seu padrão no filtro e atravessa o sistema de arquivos desses diretórios. 
+
+
+| Migração de fonte ao vivo | O XCP não suporta a modificação de dados no volume de origem durante a migração. 
+
+
+| Várias instâncias do XCP no mesmo host | Ao executar várias instâncias do XCP no mesmo host, você pode obter resultados imprevisíveis. 
+|===
+Os seguintes recursos comuns não estão disponíveis para XCP NFS e SMB:
+
+* *Tempo para concluir a migração*: O XCP adiantado não fornece o tempo para concluir a migração ou o tempo para concluir qualquer comando usado para a migração. Se você estiver fazendo a transição final, confirme que a rotatividade de dados no volume de origem é baixa.
+* * Cópia em execução novamente em um destino não limpo*: A cópia de linha de base do XCP falhará quando houver dados parciais no destino. Para uma cópia de linha de base do XCP bem-sucedida e verificação do XCP, o destino deve estar limpo.
+* *Destino ao vivo*: O XCP não suporta a modificação de dados no volume de destino durante uma migração ou durante uma sincronização incremental.
+* * Usuário não-root para File Analytics*: O XCP não suporta instalações e configurações executadas por um usuário não-root ou um usuário sudo.
+
+
+Os seguintes recursos não estão disponíveis para conetores HDFS (Distributed File System) Hadoop:
+
+[cols="2*"]
+|===
+| Nome da função | Descrição 
+
+
+| Suporte para o `sync` comando | O conetor HDFS não suporta o `sync` comando. 
+
+
+| Link simbólico (link simbólico) e suporte de link físico | O sistema de arquivos HDFS não suporta links simbólicos, links físicos ou arquivos especiais. 
+
+
+| Migração HDFS de origem ao vivo | O XCP não suporta a modificação de dados no sistema de arquivos HDFS na origem durante a migração 
+|===
+Os seguintes recursos não estão disponíveis para conetores do Simple Storage Service (S3):
+
+* *Migração com o bucket S3 como origem*: O XCP não suporta migração com um bucket S3 como fonte.
+

@@ -1,0 +1,87 @@
+---
+sidebar: sidebar 
+permalink: xcp-configure-multinode-scaleout-nfs.html 
+keywords: xcp, configure, nfs, multinode, scale, out 
+summary: Para superar os limites de desempenho de um único nó, você pode usar um único comando de cópia XCP para executar trabalhadores em vários sistemas Linux ou nós de cluster. 
+---
+= Configure a escalabilidade horizontal de vários nós
+:allow-uri-read: 
+
+
+[role="lead"]
+Para o XCP NFS, você pode superar os limites de desempenho de um único nó usando um único `copy` comando (ou `scan -md5`) para executar trabalhadores em vários sistemas Linux ou nós de cluster.
+
+.Recursos suportados
+A escalabilidade horizontal Multinode é útil em qualquer ambiente em que o desempenho de um único sistema não seja suficiente, por exemplo, nos seguintes cenários:
+
+* Quando um único nó leva meses para copiar petabytes de dados
+* Quando as conexões de alta latência com armazenamentos de objetos na nuvem diminuem a velocidade de um nó individual
+* Em grandes fazendas de cluster HDFS onde você executa um número muito grande de operações de e/S
+
+
+.Sintaxe do caminho
+A sintaxe do caminho para a escalabilidade horizontal multinode é `--nodes worker1,worker2,worker3`.
+
+.Configure a escalabilidade horizontal de vários nós
+Considere uma configuração com quatro hosts Linux com configurações semelhantes de CPU e RAM. Você pode usar todos os quatro hosts para migração porque o XCP pode coordenar as operações de cópia em todos os nós de host. Para fazer uso desses nós em um ambiente com escalabilidade horizontal, é necessário identificar um dos quatro nós como o nó principal e outros nós como nós de trabalho. Por exemplo, para uma configuração Linux de quatro nós, nomeie os nós como "master", "worker1", "worker2" e "worker3" e, em seguida, configure a configuração no nó mestre:
+
+. Copie o XCP no diretório inicial.
+. Instale e ative a licença XCP.
+. Modifique o `xcp.ini` arquivo e adicione o caminho do catálogo.
+. Defina o SSH (Secure Shell) sem senha do nó principal para os nós de trabalho:
++
+.. Gerar a chave no nó principal:
++
+`ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ''`
+
+.. Copie a chave para todos os nós de trabalho:
++
+`ssh-copy-id -i /root/.ssh/id_rsa.pub root@worker1`
+
+
+
+
+
+O nó mestre XCP usa SSH para executar trabalhadores em outros nós. Você deve configurar os nós de trabalho para habilitar o acesso SSH sem senha para o usuário que executa o XCP no nó mestre. Por exemplo, para habilitar uma demonstração de usuário em um nó mestre para usar o nó "worker1" como um nó de trabalho XCP, você deve copiar o binário XCP do nó mestre para todos os nós de trabalho no diretório inicial.
+
+.MaxStartups
+Quando você inicia vários trabalhadores XCP simultaneamente, para evitar erros, você deve aumentar o `sshd MaxStartups` parâmetro em cada nó de trabalho, como mostrado no exemplo a seguir:
+
+[listing]
+----
+echo "MaxStartups 100" | sudo tee -a /etc/ssh/sshd_config
+sudo systemctl restart sshd
+----
+.O "ficheiro nodes.ini"
+Quando o XCP executa um worker em um nó de cluster, o processo de worker herda as variáveis de ambiente do processo principal do XCP no nó principal. Para personalizar um ambiente de nó específico, você deve definir as variáveis no `nodes.ini` arquivo no diretório de configuração somente no nó principal (os nós de trabalho não têm um diretório de configuração ou catálogo). Por exemplo, para um servidor ubuntu mars que tem seu `libjvm.so` em um local diferente do nó principal, como o Wave (que é CentOS), ele requer um diretório de configuração para permitir que um trabalhador em marte use o conetor HDFS. Esta configuração é mostrada no exemplo a seguir:
+
+[listing]
+----
+[schay@wave ~]$ cat /opt/NetApp/xFiles/xcp/nodes.ini [mars]
+NHDFS_LIBJVM_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/
+amd64/server/libjvm.so
+----
+Se você estiver usando uma multisessão com caminhos de arquivo POSIX e HDFS, será necessário montar o sistema de arquivos e o sistema de arquivos exportado de origem e destino no nó principal e em todos os nós de trabalho.
+
+Quando o XCP é executado em um nó de trabalho, o nó de trabalho não tem nenhuma configuração local (nenhuma licença, arquivos de log ou catálogo). O binário XCP só é necessário no sistema no seu diretório base. Por exemplo, para executar o `copy` comando, o nó principal e todos os nós de trabalho precisam acessar a origem e o destino. Para `xcp copy --nodes linux1,linux2 hdfs:///user/demo/test \file:///mnt/ontap`, os `linux1` hosts e `linux2` devem ter o software cliente HDFS configurado e a exportação NFS montada em /mnt/ONTAP e, como mencionado anteriormente, uma cópia do binário XCP no diretório inicial.
+
+.Combine conetores POSIX e HDFS, escalabilidade horizontal multinode e recursos de segurança
+Você pode usar os conetores POSIX e HDFS, escalabilidade horizontal multinode e recursos de segurança em combinação. Por exemplo, os comandos e `verify` seguintes `copy` combinam conetores POSIX e HDFS com os recursos de segurança e escalabilidade horizontal:
+
+* `copy` exemplo de comando:
++
+[listing]
+----
+./xcp copy hdfs:///user/demo/d1 file:///mnt/nfs-server0/d3
+./xcp copy -match "'USER1 in name'" file:///mnt/nfs-server0/d3
+hdfs:///user/demo/d1
+./xcp copy —node worker1,worker2,worker3 hdfs:///user/demo/d1
+file:///mnt/nfs-server0/d3
+----
+* `verify` exemplo de comando:
++
+[listing]
+----
+./xcp verify hdfs:///user/demo/d2 file:///mnt/nfs-server0/d3
+----
+

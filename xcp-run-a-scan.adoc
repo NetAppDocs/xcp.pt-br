@@ -1,0 +1,157 @@
+---
+sidebar: sidebar 
+permalink: xcp-run-a-scan.html 
+keywords: netapp, xcp, run, scan, 
+summary: Executar uma digitalização 
+---
+= Execute uma digitalização
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Quando o sistema de arquivos NFS/SMB é adicionado à GUI do XCP File Analytics, você pode iniciar uma verificação do sistema de arquivos para analisar e representar os dados.
+
+.Passos
+. Selecione a seta na placa do servidor de ficheiros adicionada para ver as partilhas de ficheiros no servidor de ficheiros.
++
+image:xcp_image4.png["Ver ficheiro partilha imagem"]
+
+. Na lista de compartilhamentos de arquivo, selecione o nome do compartilhamento de arquivo a ser analisado.
+. Selecione *Scan* (Digitalizar) para iniciar a digitalização.
++
+O XCP apresenta uma barra de progresso para a digitalização.
+
+. Quando a digitalização estiver concluída, os separadores *stat view* e *file distribution* (distribuição de ficheiros) estão ativados para permitir visualizar gráficos.
+
+
+image:xcp_image5.png["Digitalizar imagem completa"]
+
+
+
+== Saiba mais sobre gráficos
+
+O painel da GUI do File Analytics exibe vários gráficos para visualizar o File Analytics.
+
+
+
+=== Gráfico contagem quente a frio
+
+O XCP File Analytics categoriza os arquivos não acessados por 90 dias como dados inativos. Os arquivos acessados nos últimos 90 dias são dados ativos. Os critérios para definir dados quentes e frios baseiam-se apenas no tempo de acesso.
+
+image:xcp_image6.png["Gráfico contagem quente a frio"]
+
+O gráfico Hot Cold Count exibe o número de inodes (em milhões) que estão quentes ou frios no XCP NFS. No XCP SMB, este gráfico indica o número de arquivos que estão quentes ou frios. A barra colorida representa os dados ativos e mostra a porcentagem de arquivos acessados dentro de 90 dias.
+
+
+
+=== Gráfico de tamanho quente a frio
+
+image:xcp_image7.png["Gráfico de tamanho quente a frio"]
+
+O gráfico de tamanho Hot Cold exibe a porcentagem de arquivos que estão quentes e frios e o tamanho total dos arquivos em cada categoria. A barra colorida representa os dados ativos e a parte não colorida representa os dados inativos. Os critérios para definir dados quentes e frios baseiam-se apenas no tempo de acesso.
+
+
+
+=== Entradas no Gráfico de diretório
+
+image:xcp_image8.png["Entradas no Gráfico de diretório"]
+
+O gráfico entradas nos diretórios exibe o número de entradas nos diretórios. A coluna profundidade contém diferentes tamanhos de diretório e a coluna contagem indica o número de entradas em cada profundidade de diretório.
+
+
+
+=== Distribuição de ficheiros por Gráfico de tamanho
+
+image:xcp_image9.png["Distribuição de ficheiros por Gráfico de tamanho"]
+
+O gráfico distribuição de arquivos por tamanho exibe o número de arquivos que estão sob os tamanhos de arquivo fornecidos. A coluna tamanho do arquivo contém as categorias de tamanho do arquivo e a coluna contagem indica a distribuição do número de arquivos.
+
+
+
+=== Gráfico de profundidade de diretório
+
+image:xcp_image10.png["Gráfico de profundidade de diretório"]
+
+O gráfico de profundidade do diretório representa a distribuição do número de diretórios em vários intervalos de profundidade do diretório. A coluna profundidade contém várias profundidades de diretório e a coluna contagem contém a contagem de cada profundidade de diretório no compartilhamento de arquivos.
+
+
+
+=== Espaço de arquivo usado pelo Gráfico de tamanho
+
+image:xcp_image11.png["Espaço de arquivo usado pelo Gráfico de tamanho"]
+
+O gráfico espaço de arquivo usado pelo tamanho exibe o número de arquivos em diferentes intervalos de tamanho de arquivo. A coluna tamanho do arquivo contém diferentes intervalos de tamanho de arquivo e a coluna espaço usado indica o espaço usado por cada intervalo de tamanho de arquivo.
+
+
+
+=== Espaço ocupado pelo gráfico de usuários
+
+image:xcp_image12.png["Espaço ocupado pelo gráfico de usuários"]
+
+O gráfico espaço ocupado pelos usuários exibe o espaço usado pelos usuários. A coluna Nome de usuário contém os nomes de usuários (UID quando nomes de usuário não podem ser recuperados) e a coluna espaço usado indica o espaço usado por cada nome de usuário.
+
+
+
+=== Arquivos acessados/modificados/criados Gráfico
+
+image:xcp_image13.png["Arquivos acessados/modificados/criados Gráfico"]
+
+O gráfico arquivos acessados/modificados/criados exibe a contagem de arquivos alterados ao longo do tempo. O eixo X representa o período de tempo em que as alterações foram feitas e o eixo Y representa o número de arquivos alterados.
+
+
+NOTE: Para obter o gráfico de tempo de acesso (tempo de acesso) em digitalizações SMB, marque a caixa para preservar o tempo antes de executar uma digitalização.
+
+
+
+=== Tamanho do arquivo acessado/modificado/criado Gráfico
+
+image:xcp-filesize-amc.png["Um gráfico mostrando o tamanho dos arquivos alterados ao longo do tempo"]
+
+O gráfico tamanho do arquivo acessado/modificado/criado exibe o tamanho dos arquivos alterados ao longo do tempo. O eixo X representa o período de tempo em que as alterações foram feitas e o eixo Y representa o tamanho dos arquivos alterados.
+
+
+NOTE: Para obter o gráfico de tempo de acesso (tempo de acesso) em digitalizações SMB, marque a caixa para preservar o tempo antes de executar uma digitalização.
+
+
+
+=== Distribuição de arquivos por Extension Graph
+
+image:xcp_image14.png["Distribuição de arquivos por Extension Graphic"]
+
+O gráfico distribuição de arquivos por extensão representa a contagem das diferentes extensões de arquivo em um compartilhamento de arquivos. O tamanho das divisões que representam as extensões é baseado no número de arquivos com cada extensão.
+
+Além disso, para compartilhamentos SMB, você pode obter o número de arquivos de fluxos de dados alternativos para cada extensão de arquivo, marcando a caixa para fluxos de dados alternativos antes de executar uma verificação.
+
+image:xcp-file-distribution-ads.png["Um gráfico mostrando como obter o número de arquivos de fluxo de dados alternativos para cada extensão de arquivo no XCP SMB"]
+
+
+
+=== Distribuição de tamanho de arquivo por Extension Graph
+
+image:xcp-filesize-dist-ex.png["Um gráfico que mostra o tamanho cumulativo das diferentes extensões de arquivo em um compartilhamento de arquivo."]
+
+O gráfico distribuição de tamanho de arquivo por extensão representa o tamanho cumulativo das diferentes extensões de arquivo em um compartilhamento de arquivo. O tamanho das divisões que representam as extensões é baseado no tamanho dos arquivos com cada extensão.
+
+
+
+=== Distribuição de ficheiros por Gráfico de tipo
+
+image:xcp_image15.png["Distribuição de arquivos por Extension Graphic"]
+
+O gráfico distribuição por tipo representa a contagem dos seguintes tipos de arquivos:
+
+* REG: Arquivos regulares
+* LNK: Arquivos com links
+* Especiais: Arquivos com arquivos de dispositivo e arquivos de carateres.
+* DIR: Arquivos com diretórios
+* Junção: Disponível apenas no SMB
+
+
+Além disso, para compartilhamentos SMB, você pode obter o número de arquivos de fluxos de dados alternativos para diferentes tipos marcando a caixa para fluxos de dados alternativos antes de executar uma verificação.
+
+image:xcp-file-distribution-type.png["Um gráfico mostrando como obter o número de arquivos de fluxo de dados alternativos para diferentes tipos para SMB XCP"]

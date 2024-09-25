@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: xcp-reference-use-cases.html 
+keywords: netapp, xcp, reference, smb, command, commands 
+summary: Casos de uso da XCP 
+---
+= Casos de uso para XCP NFS e SMB
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Saiba mais sobre os diferentes casos de uso de migração de dados do XCP para o NetApp XCP.
+
+link:https://docs.netapp.com/us-en/netapp-solutions/xcp/xcp-bp-data-migration-from-7-mode-to-ontap.html["Migração de dados do modo 7 para o ONTAP"^]
+
+link:https://docs.netapp.com/us-en/netapp-solutions/xcp/xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html["Migração de dados CIFS com ACLs de uma caixa de armazenamento de origem para o ONTAP"^]

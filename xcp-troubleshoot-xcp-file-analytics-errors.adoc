@@ -1,0 +1,116 @@
+---
+sidebar: sidebar 
+permalink: xcp-troubleshoot-xcp-file-analytics-errors.html 
+keywords: netapp, xcp, troubleshoot, troubleshooting, errors, file, anyalytics 
+summary: Solução de problemas de erros do XCP File Analytics 
+---
+= Solucionar erros do XCP File Analytics
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Analise as soluções para solucionar o problema.
+
+[cols="40,60"]
+|===
+| Problema | Solução 
+
+
+| Falha no serviço PostgreSQL  a| 
+Execute configure novamente e selecione a opção de instalação. Se a instalação anterior tiver sido bem-sucedida, pode selecionar a opção de reparação. Se você ainda estiver recebendo o erro, tente as etapas manuais da seguinte forma:
+
+. Reinicie o serviço PostgreSQL:
++
+`sudo systemctl restart postgresql.service`
+
+. Verifique o estado do serviço:
++
+`sudo systemctl status postgresql.service | grep Active`
+
+
+
+
+
+| Falha no serviço HTTPD  a| 
+Execute configure novamente e selecione a opção de instalação. Se a instalação anterior tiver sido bem-sucedida, pode selecionar a opção de reparação. Se você ainda estiver recebendo o erro, tente as etapas manuais da seguinte forma:
+
+. Reinicie os serviços HTTPD:
++
+`sudo systemctl restart httpd`
+
+. Verifique o status do serviço HTTPD:
++
+`sudo systemctl status httpd | grep Active`
+
+
+
+
+
+| Não é possível abrir a página de login após a instalação bem-sucedida | Verifique se o sistema pode fazer ping na máquina Linux onde o XCP File Analytics está instalado e O HTTPD está em execução. Se os serviços não estiverem em execução, execute `configure` e escolha a opção de reparo. Verifique se você está usando uma versão do navegador compatível. Consulte link:https://mysupport.netapp.com/matrix/["IMT"^]. 
+
+
+| Falha no início de sessão do utilizador  a| 
+* Verifique se você está usando uma versão do navegador compatível. Consulte link:https://mysupport.netapp.com/matrix/["IMT"^].
+* Verifique se o usuário é "admin" e a senha está correta.
+* Verifique se o serviço XCP está sendo executado emitindo `xcp service status`.
+* Verifique se a porta 5030 está aberta no Linux. Abra o aplicativo em *https:// <linux ip> :5030/API/xcp* e confirme se a mensagem lê msg: `Missing Authorization Header`.
+* Verifique se o `xcp.ini` arquivo está presente no `/opt/NetApp/xFiles/xcp/` local. Para redefinir o `xcp.ini` arquivo, execute o script de configuração e selecione a opção *Repair*. Em seguida, selecione a opção de menu para *Rebuild xcp.ini file*.
+* Execute manualmente o `xcp --listen` comando na CLI e tente fazer login. Se você não receber uma solicitação no servidor, verifique novamente a instalação e as portas usadas para comunicação com o servidor. Depois de verificar se a instalação está correta, execute o `service xcp start` comando para reiniciar o serviço.
+
+
+
+
+| A GUI XCP não está mostrando páginas atualizadas | Limpe o cache e tente novamente 
+
+
+| O serviço XCP não está a ser iniciado | Para executar o `xcp` serviço, use o `sudo systemctl start xcp` comando. Alternativamente, execute o script de configuração e selecione a opção *Repair* para iniciar os serviços que estão parados. 
+
+
+| Falha ao ler a partilha de ficheiros | O compartilhamento/volume de arquivos pode não ser legível. Verifique manualmente se o compartilhamento de arquivos é acessível/legível executando o `xcp show` comando. Além disso, verifique se o `xcp.ini` arquivo é excluído. Se for excluído, reconstrua o `xcp.ini` arquivo usando a opção de reparo de script configure.sh. 
+
+
+| Não foi possível carregar servidores de ficheiros | Tente atualizar uma página. Se o problema persistir, execute manualmente o `xcp show` comando no prompt e verifique se você pode digitalizar o servidor de arquivos. Se for bem-sucedido, levante um ticket com o suporte ao cliente da NetApp. Se não tiver êxito, verifique se o servidor de ficheiros está ativo executando uma verificação manual. Verifique se os `xcp.ini` arquivos de arquivo e licença estão no local correto. Para redefinir o `xcp.ini` arquivo, execute o script de configuração e selecione a opção *Repair*. Em seguida, selecione a opção de menu para *Rebuild xcp.ini file.* Verifique os `xcpfalogs` logs para ver se a licença precisa de renovação. 
+
+
+| A página análise de ficheiros XCP não é apresentada após a reinicialização do sistema | Os serviços XCP podem estar inativos. Execute o script de configuração e selecione a opção *Repair*. Isto irá reiniciar todos os serviços que estão parados. 
+
+
+| O espaço total de um sistema de arquivos exportado em um determinado servidor de arquivos pode mostrar mais espaço em comparação com o armazenamento físico alocado. | Isso pode acontecer quando há exportações de nível de qtree dentro do volume. Por exemplo, se o tamanho do volume exportado como `/vol1` é de 10 GB e houver uma qtree dentro do volume `/vol1/qtree1`, o `xcp show` comando mostrará o `vol1` tamanho como `10 GB` e o `qtree1` tamanho como `10 GB`. O XCP File Analytics resume o espaço de ambas as exportações e dá o espaço total, neste caso, `20 GB`. Não entende que `qtree1` é um espaço lógico. 
+
+
+| O site não pode ser alcançado ou o login do usuário falhou após uma instalação bem-sucedida.  a| 
+. Verifique se os serviços XCP estão em execução:
+`service xcp status`
+. Inicie a operação XCP Listen e confirme que não existem erros:
++
+`xcp –listen`
+
+. Se você vir o seguinte erro, instale os pacotes CodeReady usando o yum, como `yum install codeready-builder-for-rhel-8-x86_64-rpms`:
+
+
+[listing]
+----
+Error:
+-------
+Traceback (most recent call last):
+  File "xcp.py", line 1146, in <module>
+  File "xcp.py", line 1074, in main
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "PyInstaller/loader/pyimod03_importers.py", line 495, in exec_module
+  File "rest/routes.py", line 61, in <module>
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "PyInstaller/loader/pyimod03_importers.py", line 495, in exec_module
+  File "onelogin/saml2/auth.py", line 14, in <module>
+xmlsec.Error: (1, 'cannot load crypto library for xmlsec.')
+[23891] Failed to execute script 'xcp' due to unhandled exception!
+----
+|===

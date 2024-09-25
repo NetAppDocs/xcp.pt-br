@@ -1,0 +1,128 @@
+---
+sidebar: sidebar 
+permalink: xcp-access-file-analytics.html 
+keywords: netapp, xcp, file, servers, access, analytics, learn, about, graphs, hot, cold, count, size, entries in directory, distribution by size, directory depth, file space used by size 
+summary: O File Analytics fornece uma visualização gráfica dos resultados da digitalização 
+---
+= Acesse o File Analytics
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O File Analytics fornece uma visualização gráfica dos resultados da digitalização.
+
+
+
+== Faça login na GUI do File Analytics
+
+A GUI do XCP File Analytics fornece um painel com gráficos para visualizar o File Analytics. A GUI do XCP File Analytics é ativada quando você configura o XCP em uma máquina Linux.
+
+
+NOTE: Para verificar se os navegadores compatíveis têm acesso ao File Analytics, consulte o link:https://mysupport.netapp.com/matrix/["NetApp IMT"^].
+
+.Passos
+. Use o link `\https://<IP address of linux machine>/xcp` para acessar a GUI do File Analytics. Quando solicitado, aceite o certificado de segurança:
++
+.. Selecione *Avançado* abaixo da declaração de privacidade.
+.. Selecione o link *Proceed to* (continuar para `<IP address of linux machine>`*).
+
+
+. Faça login na GUI do File Analytics.
++
+Há duas maneiras de fazer login na GUI do File Analytics:
+
++
+[role="tabbed-block"]
+====
+.Faça login usando credenciais de usuário
+--
+.. Faça login na GUI usando as credenciais de usuário obtidas quando você instalou o File Analytics.
++
+image:xcp_image2.png["Ecrã de início de sessão do XCP File Analytics"]
+
+.. Opcionalmente, altere a senha para sua própria senha.
++
+Se pretender alterar a palavra-passe obtida durante a instalação para a sua própria palavra-passe, selecione o ícone de utilizador e selecione *alterar palavra-passe*.
+
++
+Sua nova senha deve ter pelo menos oito carateres e conter pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial (! * - _).
+
+
+
+
+NOTE: Depois de alterar a senha, você será desconetado automaticamente da GUI e deverá entrar novamente usando a nova senha criada.
+
+--
+.Configurar e ativar o recurso SSO
+--
+Você pode usar esse recurso de login para configurar o XCP File Analytics em uma máquina específica e compartilhar o URL da IU da Web em toda a empresa, permitindo que os usuários façam login na IU usando suas credenciais de logon único (SSO).
+
+
+NOTE: Login SSO é opcional e pode ser configurado e habilitado permanentemente. Para configurar o login SSO baseado na Security Assertion Markup Language (SAML), <<Configurar credenciais do SSO>>consulte .
+
+--
+====
+. Depois de fazer login, você pode ver o agente NFS; um sinal verde está presente mostrando a configuração mínima do sistema Linux e da versão XCP.
+. Se você tiver configurado um agente SMB, poderá ver o agente SMB adicionado na mesma placa de agente.
+
+
+
+
+== Configurar credenciais do SSO
+
+A funcionalidade de login SSO é implementada no XCP File Analytics usando SAML e é suportada com o provedor de identidade ADFS (Serviços de Federação do ative Directory). O SAML descarrega a tarefa de autenticação para o provedor de identidade (IDP) de terceiros para sua empresa, que pode utilizar qualquer número de abordagens para MFA (autenticação multifator).
+
+.Passos
+. Registre o aplicativo XCP File Analytics com seu provedor de identidade corporativa.
++
+O File Analytics agora é executado como um provedor de serviços e, portanto, deve ser registrado no seu provedor de identidade corporativa. Geralmente, há uma equipe na empresa que lida com esse processo de integração SSO. O primeiro passo é encontrar e entrar em Contato com a equipe relevante e compartilhar os detalhes dos metadados do aplicativo File Analytics com eles.
+
++
+A seguir estão os detalhes obrigatórios que você deve compartilhar para se Registrar com seu provedor de identidade:
+
++
+** *ID da entidade do prestador de serviços:* `\https://<IP address of linux machine>/xcp`
+** * URL do Serviço de asserção do Fornecedor de Serviços ao Consumidor (ACS):* `\https://<IP address of linux machine>:5030/api/xcp/SAML/sp`
++
+Você também pode verificar esses detalhes fazendo login na IU do File Analytics:
+
++
+... Faça login na GUI usando as etapas descritas em <<Faça login na GUI do File Analytics>>.
+... Selecione o ícone *User* no canto superior direito da página e selecione *SAML settings*.
++
+Marque *Configurações do provedor de serviços* no menu suspenso exibido.
+
++
+image:xcp-saml-settings.png["Exemplo de configurações SAML"]
+
++
+Após o Registro, você receberá os detalhes do endpoint de IDP para sua empresa. Você deve fornecer esses metadados de endpoint IDP à IU do File Analytics.
+
+
+
+
+
+. Forneça os detalhes do IDP:
++
+.. Vá para *Dashboard*. Selecione o ícone *User* no canto superior direito da página e selecione *SAML settings*.
+.. Insira os detalhes de IDP que você obteve após o Registro.
++
+*Exemplo*
+
++
+image:xcp_image19.png["Exemplo de definição de IDP"]
+
+.. Marque a caixa de seleção *Enable SAML* para habilitar permanentemente SSO baseado em SAML.
+.. Selecione *Guardar*.
+.. Faça logout do File Analytics e faça login novamente.
++
+Você é redirecionado para a página SSO da sua empresa.
+
+
+
+

@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: xcp-nfs-add-ons.html 
+keywords: xcp, nfs, hdfs, connector, configure, security 
+summary: Os recursos adicionais XCP NFS suportam o uso de conetores POSIX e HDFS, aumentam a segurança e oferecem suporte ao uso de arquitetura de escalabilidade horizontal para acelerar migrações de dados. 
+---
+= Recursos adicionais do XCP NFS
+:allow-uri-read: 
+
+
+[role="lead"]
+Os recursos adicionais XCP NFS suportam o uso de conetores POSIX e HDFS, aumentam a segurança e oferecem suporte ao uso de arquitetura de escalabilidade horizontal para acelerar migrações de dados.
+
+
+
+== Suporte NFSv4
+
+Quando você ativa apenas o NFSv4 nos volumes de origem, destino e catálogo no data center, você pode usar o caminho POSIX em vez do caminho de exportação para migrar seus dados. Para usar o caminho POSIX, você deve primeiro montar os volumes de origem, destino e catálogo no sistema host que executa o XCP e, em seguida, usar o caminho do arquivo POSIX para fornecer a origem e o destino ao XCP. link:xcp-configure-posix-connector-nfs.html["Configure o conetor POSIX"]Consulte .
+
+[NOTE]
+====
+* O suporte NFSv4 é limitado ao caminho POSIX e à `copy` operação, a `sync` operação não é suportada.
+* O conetor POSIX pode ser mais lento quando comparado com o motor cliente de soquete TCP XCP NFSv3.
+
+
+====
+
+
+== Conetores POSIX
+
+O XCP suporta o uso de conetores POSIX para fornecer caminhos de origem, destino e catálogo para migração de dados. O conetor POSIX (file://) dá ao XCP a capacidade de acessar qualquer sistema de arquivos montado no Linux, como NFSv4, XFS e Veritas. Para usuários não-root, o administrador do sistema pode montar o sistema de arquivos para dar a qualquer usuário não-root a capacidade de acessar o sistema de arquivos usando um conetor POSIX com o prefixo file://.
+
+Você pode se beneficiar do uso de conetores POSIX quando não tiver permissões suficientes para montar o arquivo ou quando o suporte disponível nos data centers estiver limitado a NFSv4. Nesses casos, qualquer usuário raiz pode montar a origem e o destino e, em seguida, acessar o caminho usando um conetor POSIX. Quando você estiver usando conetores POSIX, você só pode executar a `xcp copy` operação.
+
+
+
+== Segurança XCP
+
+O recurso de segurança XCP oferece a capacidade de executar uma migração como um usuário não-root em uma máquina host Linux. Em versões anteriores do XCP, como usuário root na máquina Linux, você executa uma migração com todas as permissões para os volumes de origem, destino e catálogo, e a montagem é concluída pelas operações do XCP.
+
+Quando você está pré-formando migrações de dados, é comum desativar a segurança e permitir que um administrador copie tudo o mais rápido possível. Para transições contínuas em ambientes de produção em que o XCP está em uso há vários anos, não é seguro executar como administrador (ou raiz). Portanto, remover o requisito para executar o XCP como usuário root dá a você a capacidade de usar o XCP em ambientes seguros. Quando um usuário normal que não seja root executa operações XCP, o usuário que não é root tem os mesmos direitos de acesso e limites que o usuário.
+
+Nesse ambiente seguro, um usuário raiz pode montar o volume de origem, destino e catálogo na máquina host e fornecer as permissões necessárias para os volumes de destino e catálogo para um usuário que não seja root gravar os dados. Isso dá ao usuário não-root a capacidade de executar uma migração usando o recurso conetor POSIX XCP.
+
+
+
+== Escalabilidade horizontal XCP
+
+Até agora, a migração de dados usando XCP estava limitada a um único host com maior RAM e CPU. Para acelerar a migração, a memória e os núcleos em um único host foram aumentados, mas ainda poderia levar um tempo significativo para copiar petabytes de dados. A arquitetura XCP com escalabilidade horizontal oferece a capacidade de usar vários hosts para realizar uma migração de dados. Com esse recurso, você pode usar vários hosts Linux para distribuir sua carga de trabalho e diminuir o tempo de migração.
+
+Você pode se beneficiar da escalabilidade horizontal de vários nós em qualquer ambiente em que o desempenho de um único sistema não seja suficiente. Para superar os limites de desempenho de um único nó, você pode usar um único `copy` comando (ou `scan -md5`) para executar trabalhadores em vários sistemas Linux ou nós de cluster Hadoop. Atualmente, a escalabilidade horizontal XCP é suportada apenas para `copy` operações de comando.
+
+
+
+== Conetores do Hadoop Distributed File System
+
+O XCP suporta a migração de dados de um sistema de arquivos HDFS para um sistema de arquivos NetApp e vice-versa. Em um ambiente Hadoop com segurança habilitada, um usuário não-root em um cluster Hadoop pode executar a migração para um sistema de arquivos exportado do NetApp NFSv4. O conetor HDFS (hdfs://) dá ao XCP a capacidade de acessar qualquer sistema de arquivos HDFS disponível com diferentes fornecedores. Um usuário não-root pode usar o XCP para realizar migrações usando conetores HDFS ou POSIX.
+
+Você pode incluir clusters HDFS em uma configuração de escalabilidade horizontal XCP porque eles usam várias máquinas Linux high-end. Isso minimiza o requisito para nós de trabalho XCP adicionais. Para a migração de dados, você tem a opção de reutilizar os nós de cluster HDFS ou ir com hosts separados.
+
+
+NOTE: Os conetores HDFS são qualificados e suportados para os clusters MAPR e Cloudera, mas só podem executar uma operação de linha de base `copy`.

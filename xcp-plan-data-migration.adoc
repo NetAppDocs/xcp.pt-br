@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: xcp-plan-data-migration.html 
+keywords: netapp, xcp, plan, planning, data, migration, migrate, migrating, nfs, smb, file, analytics 
+summary: Planejar a migração de dados 
+---
+= Planejar a migração de dados
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Você pode Planejar sua migração usando a CLI ou a GUI do File Analytics.
+
+Use os seguintes comandos para Planejar sua migração:
+
+* Mostrar
+* Digitalizar
+
+
+Use o File Analytics para visualizar as estatísticas de exportações e compartilhamentos.

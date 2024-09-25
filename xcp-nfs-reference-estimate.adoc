@@ -1,0 +1,376 @@
+---
+sidebar: sidebar 
+permalink: xcp-nfs-reference-estimate.html 
+keywords: netapp, xcp, reference, nfs, command, commands 
+summary: Referência do comando XCP NFS 
+---
+= estimativa
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+O comando XCP NFS `estimate` é usado para estimar o tempo para concluir uma cópia de linha de base da origem para o destino. Ele calcula o tempo estimado para concluir uma cópia de linha de base usando todos os recursos do sistema disponíveis atuais, como CPU, RAM, rede e outros parâmetros. Você pode usar a `-target` opção para iniciar uma operação de cópia de amostra e obter o tempo de estimativa.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client-01 linux]# ./xcp estimate -t 100 -id estimate01 -target 10.101.10.10:/temp8
+
+xcp: WARNING: your license will expire in less than 10 days! You can renew your license at https://xcp.netapp.com
+Job ID: Job_2023-04-12_08.09.16.126908_estimate
+Starting live test for 1m40s to estimate time to copy '10.101.10.10:/temp4' to
+'10.101.10.10:/temp8'...
+estimate regular file copy task completed before the 1m40s duration
+0 in (0/s), 0 out (0/s), 5s
+0 in (0/s), 0 out (0/s), 10s
+Estimated time to copy '10.101.12.11:/temp4' to '10.101.12.10:/temp8' based on a 1m40s live test:
+5.3s
+Xcp command : xcp estimate -t 100 -id estimate01 -target 10.101.12.10:/temp8
+Estimated Time : 5.3s
+Job ID : Job_2023-04-12_08.09.16.126908_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-12_08.09.16.126908_estimate.log
+STATUS : PASSED
+[root@client-01linux]#
+----
+====
+A tabela a seguir lista os `estimate` parâmetros e sua descrição.
+
+[cols="2*"]
+|===
+| Parâmetro | Descrição 
+
+
+| <<nfs_estimate_id,estimativa -id >> | Especifica o nome do catálogo de uma cópia ou índice de digitalização anterior. 
+
+
+| <<nfs_estimate_gbit,estimativa -gbit >> | Usa gigabits de largura de banda para estimar o melhor tempo (padrão: 1). 
+
+
+| <<nfs_estimate_target,estimativa -alvo >> | Especifica o destino a ser usado para cópia de teste em tempo real. 
+
+
+| <<nfs_estimate_t,estimativa -t /s/m/h]> | Especifica a duração da cópia de teste ao vivo (padrão: 5m). 
+
+
+| <<nfs_estimate_bs,estimativa -bs [k]> | Especifica o tamanho do bloco de leitura/gravação (padrão: 64K). 
+
+
+| <<nfs_estimate_dircount,estimativa -dircount [k]> | Especifica o tamanho da solicitação para diretórios de leitura (padrão: 64K). 
+
+
+| <<nfs_estimate_preserveatime,estimar -preservar-tempo>> | Preserva o tempo de acesso do arquivo ou diretório (padrão: False). 
+
+
+| <<nfs_estimate_loglevel,estimativa -loglevel >> | Define o nível de log; os níveis disponíveis são INFO, DEBUG (default: Info) 
+|===
+
+
+== estimativa -id <name>
+
+Use o `-id <name>` parâmetro com o `estimate` comando para excluir os arquivos e diretórios que correspondem ao filtro.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client1 linux]# ./xcp estimate -id csdata01
+
+xcp: WARNING: your license will expire in less than 11 days! You can renew your license at
+https://xcp.netapp.com
+xcp: WARNING: XCP catalog volume is low on disk space: 99.99% used, 62.0 MiB free space.
+Job ID: Job_2023-04-20_12.59.31.260914_estimate
+== Best-case estimate to copy ‘data-set:/user1given 1 gigabit of bandwidth ==
+112 TiB of data at max 128 MiB/s: at least 10d13h
+Xcp command : xcp estimate -id csdata01
+Estimated Time : 10d13h
+Job ID : Job_2023-04-20_12.59.31.260914_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-20_12.59.31.260914_estimate.log
+STATUS : PASSED
+xcp: WARNING: XCP catalog volume is low on disk space: 99.99% used, 62.0 MiB free space.
+[root@client1 linux]#
+----
+====
+
+
+== estimativa -gbit <n>
+
+Use o `-gbit <n>` parâmetro com o `estimate` comando para estimar o tempo de melhor caso (padrão: 1). Esta opção não pode ser utilizada com a `-target` opção.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -gbit <n> -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client-01 linux]# ./xcp estimate -gbit 10 -id estimate01
+
+xcp: WARNING: your license will expire in less than 10 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-12_08.12.28.453735_estimate
+== Best-case estimate to copy '10.101.12.11:/temp4' given 10 gigabits of bandwidth ==
+0 of data at max 1.25 GiB/s: at least 0.0s
+Xcp command : xcp estimate -gbit 10 -id estimate01
+Estimated Time : 0.0s
+Job ID : Job_2023-04-12_08.12.28.453735_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-12_08.12.28.453735_estimate.log
+STATUS : PASSED
+[root@client-01linux]#
+----
+====
+
+
+== estimativa -alvo <path>
+
+Use o `-target <path>` parâmetro com o `estimate` comando para especificar o destino a ser usado para cópia de teste em tempo real.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -t 100 -id <name> -target <path>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client-01 linux]# ./xcp estimate -t 100 -id estimate01 -target 10.101.12.11:/temp8
+
+xcp: WARNING: your license will expire in less than 10 days! You can renew your license at https://xcp.netapp.com
+Job ID: Job_2023-04-12_08.09.16.126908_estimate
+Starting live test for 1m40s to estimate time to copy '10.101.12.11:/temp4' to '10.101.12.11:/temp8'...
+estimate regular file copy task completed before the 1m40s duration
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-12_08.09.16.126908_estimate.log
+STATUS : PASSED
+[root@client-01linux]#
+----
+====
+
+
+== estimativa -t <n[s|m|h]>
+
+Use o `-t <n[s|m|h]>` parâmetro com o `estimate` comando para especificar a duração da cópia de teste em tempo real. O valor padrão é 5m.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -t <n[s|m|h]> -id <name> -target <path>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client-01 linux]# ./xcp estimate -t 100 -id estimate01 -target 10.101.12.12:/temp8
+
+xcp: WARNING: your license will expire in less than 10 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-12_08.09.16.126908_estimate
+Starting live test for 1m40s to estimate time to copy '10.101.12.11:/temp4' to
+'10.101.12.12:/temp8'...
+estimate regular file copy task completed before the 1m40s duration
+0 in (0/s), 0 out (0/s), 5s
+0 in (0/s), 0 out (0/s), 10s
+Estimated time to copy '10.101.12.11:/temp4' to '10.101.12.12:/temp8' based on a 1m40s live
+test: 5.3s
+
+Xcp command : xcp estimate -t 100 -id estimate01 -target 10.101.12.11:/temp8
+Estimated Time : 5.3s
+Job ID : Job_2023-04-12_08.09.16.126908_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-12_08.09.16.126908_estimate.log
+STATUS : PASSED
+[root@client-01linux]#
+----
+====
+
+
+== estimativa -bs <n[k]>
+
+Use o `-bs <n[k]>` parâmetro com o `estimate` comando para especificar o tamanho do bloco de leitura/gravação. O valor padrão é 64k.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -id <name> -bs <n[k]>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client1 linux]# ./xcp estimate -id estimate01 -bs 128k
+
+xcp: WARNING: your license will expire in less than 7 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-24_08.44.12.564441_estimate
+63.2 KiB in (12.5 KiB/s), 2.38 KiB out (484/s), 5s
+== Best-case estimate to copy 'xxx' given 1 gigabit of bandwidth ==
+112 TiB of data at max 128 MiB/s: at least 10d13h
+Xcp command : xcp estimate -id estimate01 -bs 128k
+Estimated Time : 10d13h
+Job ID : Job_2023-04-24_08.44.12.564441_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-24_08.44.12.564441_estimate.log
+STATUS : PASSED
+[root@client1 linux]#
+----
+====
+
+
+== estimativa -dircount <n[k]>
+
+Use o `-dircount <n[k]>` parâmetro com o `estimate` comando para especificar o tamanho solicitado para a leitura de diretórios. O valor padrão é 64k.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -id <name> -dircount <n[k]> -t <n> -target <path>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client1 linux]# ./xcp estimate -id csdata01 -dircount 128k -t 300 -target <path>
+
+xcp: WARNING: your license will expire in less than 11 days! You can renew your license at
+https://xcp.netapp.com
+xcp: WARNING: XCP catalog volume is low on disk space: 99.99% used, 61.6 MiB free space.
+Job ID: Job_2023-04-20_13.03.46.820673_estimate
+Starting live test for 5m0s to estimate time to copy ‘data-set:/user1 to `<path>`...
+1,909 scanned, 126 copied, 2 giants, 580 MiB in (115 MiB/s), 451 MiB out (89.5 MiB/s), 5s
+1,909 scanned, 134 copied, 2 giants, 1.23 GiB in (136 MiB/s), 1015 MiB out (112 MiB/s), 10s
+1,909 scanned, 143 copied, 2 giants, 1.88 GiB in (131 MiB/s), 1.54 GiB out (113 MiB/s), 15s
+.
+.
+.
+7,136 scanned, 2,140 copied, 4 linked, 8 giants, 33.6 GiB in (110 MiB/s), 32.4 GiB out (110
+MiB/s), 4m57s
+Sample test copy completed for, 300.03s
+0 in (-7215675436.180/s), 0 out (-6951487617.036/s), 5m2s
+2,186 scanned, 610 KiB in (121 KiB/s), 76.9 KiB out (15.3 KiB/s), 5m7s
+Estimated time to copy ‘data-set:/user1to '10.01.12.11:/mapr11' based on a 5m0s live test:
+7d6h
+Xcp command : xcp estimate -id csdata01 -dircount 128k -t 300 -target 10.101.12.11:/mapr11
+Estimated Time : 7d6h
+Job ID : Job_2023-04-20_13.03.46.820673_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-20_13.03.46.820673_estimate.log
+STATUS : PASSED
+xcp: WARNING: XCP catalog volume is low on disk space: 99.99% used, 61.6 MiB free space.
+[root@client1 linux]#
+----
+====
+
+
+== estimativa -parallel <n>
+
+Use o `-parallel <n>` parâmetro com o `estimate` comando para especificar o número máximo de processos em lote simultâneos. O valor padrão é 7.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -loglevel <name> -parallel <n> -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client1 linux]# ./xcp estimate -loglevel DEBUG -parallel 8 -id estimate1
+
+xcp: WARNING: your license will expire in less than 11 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-20_11.36.45.535209_estimate
+== Best-case estimate to copy '10.10.101.10:/users009/xxx/mnt' given 1 gigabit of bandwidth ==
+6.75 GiB of data at max 128 MiB/s: at least 54.0s
+Xcp command : xcp estimate -loglevel DEBUG -parallel 8 -id estimate1
+Estimated Time : 54.0s
+Job ID : Job_2023-04-20_11.36.45.535209_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-20_11.36.45.535209_estimate.log
+STATUS : PASSED
+[root@client1 linux]#
+----
+====
+
+
+== estimar -preservar-tempo
+
+Use o `-preserve-atime` parâmetro com o `estimate` comando para preservar o tempo de acesso do arquivo ou diretório. O valor padrão é false.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -loglevel <name> -preserve-atime -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+root@client1 linux]# ./xcp estimate -loglevel DEBUG -preserve-atime -id estimate1
+
+xcp: WARNING: your license will expire in less than 11 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-20_11.19.04.050516_estimate
+== Best-case estimate to copy '10.10.101.10:/users009/xxx/mnt' given 1 gigabit of bandwidth
+==
+6.75 GiB of data at max 128 MiB/s: at least 54.0s
+Xcp command : xcp estimate -loglevel DEBUG -preserve-atime -id estimate1
+Estimated Time : 54.0s
+Job ID : Job_2023-04-20_11.19.04.050516_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-20_11.19.04.050516_estimate.log
+STATUS : PASSED
+[root@client1 linux]#
+----
+====
+
+
+== estimar -loglevel <name>
+
+Use o `-loglevel <name>` parâmetro com o `estimate` comando para definir o nível de log; os níveis disponíveis são INFO e DEBUG. O nível padrão é INFO.
+
+.Sintaxe
+[source, cli]
+----
+xcp estimate -loglevel <name> -id <name>
+----
+.Mostrar exemplo
+[%collapsible]
+====
+[listing]
+----
+[root@client1 linux]# ./xcp estimate -loglevel DEBUG -parallel 8 -id estimate1
+
+xcp: WARNING: your license will expire in less than 11 days! You can renew your license at
+https://xcp.netapp.com
+Job ID: Job_2023-04-20_11.36.45.535209_estimate
+== Best-case estimate to copy '10.10.101.10:/users009/xxx/mnt' given 1 gigabit of bandwidth ==
+6.75 GiB of data at max 128 MiB/s: at least 54.0s
+Xcp command : xcp estimate -loglevel DEBUG -parallel 8 -id estimate1
+Estimated Time : 54.0s
+Job ID : Job_2023-04-20_11.36.45.535209_estimate
+Log Path : /opt/NetApp/xFiles/xcp/xcplogs/Job_2023-04-20_11.36.45.535209_estimate.log
+STATUS : PASSED
+[root@client1 linux]#
+----
+====

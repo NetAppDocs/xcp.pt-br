@@ -1,0 +1,17 @@
+---
+sidebar: sidebar 
+permalink: xcp-supported-configurations.html 
+keywords: xcp, configurations, supported, supported, hosts 
+summary: Configurações compatíveis com XCP, como hosts, versões ONTAP e navegadores compatíveis, estão listadas no IMT. 
+---
+= Configurações compatíveis
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Todas as configurações compatíveis com XCP, como hosts, versões do ONTAP e navegadores compatíveis, estão listadas no link:https://mysupport.netapp.com/matrix/["Ferramenta de Matriz de interoperabilidade (IMT)"^].

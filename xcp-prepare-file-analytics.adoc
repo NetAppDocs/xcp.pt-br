@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: xcp-prepare-file-analytics.html 
+keywords: netapp, xcp, prepare, preparing, preparation, file analytics 
+summary: Prepare-se para a migração de dados usando o File Analytics. 
+---
+= Preparar análise de ficheiros
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Prepare-se para a migração de dados usando o File Analytics.
+
+O File Analytics tem as seguintes duas partes:
+
+* Servidor de análise de arquivos em execução no Linux
+* Serviço SMB XCP em execução no Windows
+
+
+A instalação do File Analytics tem os seguintes requisitos:
+
+* Os requisitos de sistema e sistema operacional compatíveis são os mesmos que os fornecidos para a instalação NFS e SMB. Como o banco de dados residirá em uma caixa Linux, você deve ter certeza de ter um mínimo de 10 GB de espaço livre.
+* A máquina Linux onde você instala o servidor File Analytics deve estar conetada à internet ou ao repositório yum. O script de instalação fala com o repositório yum para baixar os pacotes necessários, como PostgreSQL, HTTP e SSL.
+* A GUI do File Analytics só pode ser hospedada em uma máquina Linux junto com os serviços XCP para Linux rodando na mesma caixa.
+* Para executar serviços SMB, execute as seguintes etapas:
++
+** Verifique se a caixa do Windows pode fazer ping na máquina Linux onde o servidor de análise de arquivos está sendo executado.
+** Se você estiver dentro de um firewall, verifique se as portas 5030 e 5432 estão abertas. A porta 5030 é usada para fazer a chamada REST para o Windows. A porta 5432 é usada para a conexão PostgreSQL.
+
+
+
+
+
+NOTE: O servidor XCP File Analytics sempre é executado em uma máquina Linux. Não há instalação separada disponível para o SMB File Analytics. Se você é um usuário do Windows e deseja executar o File Analytics para compartilhamento SMB, então você deve instalar o File Analytics para Linux e conetar a caixa do Windows a um banco de dados Linux. Se você usar somente o XCP File Analytics, não será necessário configurar o Catálogo XCP para NFS.
