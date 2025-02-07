@@ -613,6 +613,9 @@ STATUS : PASSED
 
 Use o `-stats` parâmetro com o `scan` comando para listar arquivos em um formato de relatório de estatísticas de árvore.
 
+
+NOTE: A opção -stats imprime um relatório legível por humanos no console. Outras opções de formato de relatório são -html ou -csv. O formato CSV (valores separados por vírgula) tem valores exatos. Os relatórios CSV e HTML são salvos automaticamente no catálogo, se existir um catálogo.
+
 .Sintaxe
 [source, cli]
 ----

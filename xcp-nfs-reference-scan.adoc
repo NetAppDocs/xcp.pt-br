@@ -199,9 +199,13 @@ STATUS : PASSED
 
 Use os `-stats` parâmetros , `-csv` e `-html` com o `scan` comando para listar arquivos no formato de relatório estatístico de árvore.
 
+[NOTE]
+====
+* A `-stats` opção imprime um relatório legível por humanos no console. Outras opções de formato de relatório são `-html` ou `-csv`. O formato CSV (valores separados por vírgula) tem valores exatos. Os relatórios CSV e HTML são salvos automaticamente no catálogo, se existir um catálogo.
+* Os relatórios XCP (.csv, .html) são salvos no local do catálogo especificado no `xcp.ini` arquivo. Os arquivos são armazenados na `<catalog path>/catalog/indexes/1/reports` pasta. Pode visualizar relatórios de amostra no link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2886872["Referência NetApp XCP 1.9.3"^].
 
-NOTE: Os relatórios XCP (.csv, .html) são salvos no local do catálogo especificado no `xcp.ini` arquivo. Os arquivos são armazenados na `<catalog path>/catalog/indexes/1/reports` pasta. Você pode exibir relatórios de exemplo no apêndice.
 
+====
 .Sintaxe
 [source, cli]
 ----
