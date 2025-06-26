@@ -29,9 +29,6 @@
   <block id="2b83916321c793aeb5bffce5ddd49d3d" category="inline-link-macro">Aviso para NetApp XCP 1.9.1</block>
   <block id="dbc8e8be00730d6953956c8b0aa305cb" category="list-text"><block ref="dbc8e8be00730d6953956c8b0aa305cb" category="inline-link-macro-rx"></block></block>
   <block id="a3100bf3334206028c894a5568ddcf09" category="summary">Descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos.</block>
-  <block id="6f9bf328f7fea62d92188f9c4c08614b" category="doc">Notas de versão do XCP v1,9.4</block>
-  <block id="3b61885b697e1edb6c215f90afdd792e" category="paragraph">A <block ref="98899b177c8da430fcd78f8fb0f1ab8b" category="inline-link-macro-rx"></block> descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos.</block>
-  <block id="dbd469acdcbd52648cb242bcfda6add3" category="paragraph">É necessário iniciar sessão no site de suporte da NetApp para aceder às Notas de versão.</block>
   <block id="23f08f66a8c926598f110a30ea423fdb" category="summary">O File Analytics fornece uma visualização gráfica dos resultados da digitalização</block>
   <block id="f0d39ea007ba94b40e0daf5ae44f9298" category="doc">Acesse o File Analytics</block>
   <block id="c2fe5fdcb3117ff21509e23d6dfca2de" category="paragraph">O File Analytics fornece uma visualização gráfica dos resultados da digitalização.</block>
@@ -2217,4 +2214,7 @@
   <block id="12ce88dea76a012f44f4f35bbc418dbd" category="list-text">A<block ref="1051648d0a5a726e0234c2579abcd347" prefix=" " category="inline-code"></block> opção imprime um relatório legível por humanos no console. Outras opções de formato de relatório são<block ref="a04601c5ed04826cdcefa49dea445044" prefix=" " category="inline-code"></block> ou<block ref="e36751ffcb15beae9c1bdef00c6041fd" prefix=" " category="inline-code"></block>. O formato CSV (valores separados por vírgula) tem valores exatos. Os relatórios CSV e HTML são salvos automaticamente no catálogo, se existir um catálogo.</block>
   <block id="94e333b8fe7eeb24ad8148da30611a12" category="list-text">Os relatórios XCP (.csv, .html) são salvos no local do catálogo especificado no<block ref="d509f49d5d9a07934f91eefcf45a7334" prefix=" " category="inline-code"></block> arquivo. Os arquivos são armazenados na<block ref="4ab06dfafbc06c813ac00690ec02817f" prefix=" " category="inline-code"></block> pasta. Pode visualizar relatórios de amostra no <block ref="4e380b3bd4c911d8ac7f28200efc937b" category="inline-link-macro-rx"></block>.</block>
   <block id="1ce3aa5c05c910125de58745a6c5c442" category="admonition">A opção -stats imprime um relatório legível por humanos no console. Outras opções de formato de relatório são -html ou -csv. O formato CSV (valores separados por vírgula) tem valores exatos. Os relatórios CSV e HTML são salvos automaticamente no catálogo, se existir um catálogo.</block>
+  <block id="5cb2823040d5c096016e66f50cb537d9" category="doc">Notas de versão do XCP v1.9.4P1</block>
+  <block id="1ffdd60f2e1036fd9fdd193a4b1f40c8" category="paragraph">A <block ref="c72f9149922a980ca48dffb603f15c20" category="inline-link-macro-rx"></block> descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos.</block>
+  <block id="7db7336d37e2a7cbb5ab4d9e623c5961" category="paragraph">Você precisa fazer login no site de suporte da NetApp para acessar as notas de versão.</block>
 </blocks>

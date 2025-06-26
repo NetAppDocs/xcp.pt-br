@@ -4,11 +4,11 @@ sidebar: sidebar
 keywords: release, notes, new, features, fixed, issues, known, xcp 
 summary: Descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos. 
 ---
-= Notas de versão do XCP v1,9.4
+= Notas de versão do XCP v1.9.4P1
 :allow-uri-read: 
 
 
 [role="lead"]
-A link:https://library.netapp.com/ecm/ecm_download_file/ECMLP3317866["Notas de versão do XCP v1,9.4"^] descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos.
+A link:https://library.netapp.com/ecm/ecm_download_file/ECMLP3317866["Notas de versão do XCP v1.9.4P1"^] descreve novos recursos, notas de atualização, problemas corrigidos, limitações conhecidas e problemas conhecidos.
 
-É necessário iniciar sessão no site de suporte da NetApp para aceder às Notas de versão.
+Você precisa fazer login no site de suporte da NetApp para acessar as notas de versão.
