@@ -35,13 +35,13 @@ indexpage:
   - title: Mais recursos
     links:
     - title: NetApp (vídeos NetApp XCP)
-      url: link:https://www.youtube.com/user/NetAppTechCommTV/search?query=xcp
+      url: https://www.youtube.com/user/NetAppTechCommTV/search?query=xcp
     - title: NetApp XCP (incluindo links para obter uma licença)
       url: https://xcp.netapp.com/
     - title: Recursos do NetApp para XCP
       url: https://www.netapp.com/search/#q=xcp&sort=relevancy&f:@language=English
     - title: Comunidade NetApp (fóruns)
-      url: link:https://community.netapp.com
+      url: https://community.netapp.com
   - title: Referência da XCP
     links:
     - title: Referência do comando NFS
